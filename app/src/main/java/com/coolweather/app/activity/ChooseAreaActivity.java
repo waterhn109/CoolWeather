@@ -106,6 +106,7 @@ public class ChooseAreaActivity extends Activity {
 				}
 			}
 		});
+
 		queryProvinces();  // 加载省级数据
 	}
 
