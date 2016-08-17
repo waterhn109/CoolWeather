@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:2:1-32:12
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:2:1-33:12
 	package
 		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:3:5-34
 		INJECTED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml
@@ -30,7 +30,7 @@ ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidMan
 	android:name
 		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:11:22-64
 application
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:13:5-30:19
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:13:5-31:19
 	android:label
 		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:16:9-41
 	android:allowBackup
@@ -40,30 +40,30 @@ ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidMan
 	android:theme
 		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:17:9-40
 activity#com.coolweather.app.activity.ChooseAreaActivity
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:18:9-26:20
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:18:9-27:20
 	android:label
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:20:13-45
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:21:13-45
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:19:13-75
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:20:13-75
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:21:13-25:29
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:22:13-26:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:22:17-69
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:22:25-66
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:24:17-77
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:24:27-74
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:25:27-74
 activity#com.coolweather.app.activity.WeatherActivity
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:27:9-90
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:28:9-90
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:27:19-78
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:28:19-78
 service#com.coolweather.app.service.AutoUpdateService
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:28:9-89
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:29:9-89
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:28:18-78
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:29:18-78
 receiver#com.coolweather.app.receiver.AutoUpdateReceiver
-ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:29:9-93
+ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:30:9-93
 	android:name
-		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:29:19-81
+		ADDED from C:\Users\HY\AndroidStudioProjects\CoolWeather\app\src\main\AndroidManifest.xml:30:19-81
