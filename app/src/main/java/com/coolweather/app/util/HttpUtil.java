@@ -7,7 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpUtil {
-	
+
+
 	public static void sendHttpRequest(final String address,
 			final HttpCallbackListener listener) {
 		new Thread(new Runnable() {

@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.coolweather.app.R;
 import com.coolweather.app.db.CoolWeatherDB;
 import com.coolweather.app.model.City;
-import com.coolweather.app.model.County;
 import com.coolweather.app.model.Province;
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
@@ -48,10 +47,7 @@ public class ChooseAreaActivity extends Activity {
 	 * 市列表
 	 */
 	private List<City> cityList;
-	/**
-	 * 县列表
-	 */
-	private List<County> countyList;
+
 	/**
 	 * 选中的省份
 	 */
@@ -94,15 +90,6 @@ public class ChooseAreaActivity extends Activity {
 				if (currentLevel == LEVEL_PROVINCE) {
 					selectedProvince = provinceList.get(index);
 					queryCities();
-				} else if (currentLevel == LEVEL_CITY) {
-					selectedCity = cityList.get(index);
-					queryCounties();
-				} else if (currentLevel == LEVEL_COUNTY) {
-					String countyCode = countyList.get(index).getCountyCode();
-					Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
-					intent.putExtra("county_code", countyCode);
-					startActivity(intent);
-					finish();
 				}
 			}
 		});
@@ -147,34 +134,18 @@ public class ChooseAreaActivity extends Activity {
 		}
 	}
 	
-	/**
-	 * 查询选中市内所有的县，优先从数据库查询，如果没有查询到再去服务器上查询。
-	 */
-	private void queryCounties() {
-		countyList = coolWeatherDB.loadCounties(selectedCity.getId());
-		if (countyList.size() > 0) {
-			dataList.clear();
-			for (County county : countyList) {
-				dataList.add(county.getCountyName());
-			}
-			adapter.notifyDataSetChanged();
-			listView.setSelection(0);
-			titleText.setText(selectedCity.getCityName());
-			currentLevel = LEVEL_COUNTY;
-		} else {
-			queryFromServer(selectedCity.getCityCode(), "county");
-		}
-	}
+
 	
 	/**
 	 * 根据传入的代号和类型从服务器上查询省市县数据。
+	 * 重新写此函数，xml解析
 	 */
 	private void queryFromServer(final String code, final String type) {
 		String address;
 		if (!TextUtils.isEmpty(code)) {
-			address = "http://www.weather.com.cn/data/list3/city" + code + ".xml";
+			address = "http://flash.weather.com.cn/wmaps/xml/" + code + ".xml";
 		} else {
-			address = "http://www.weather.com.cn/data/list3/city.xml";
+			address = "http://flash.weather.com.cn/wmaps/xml/china.xml";
 		}
 		showProgressDialog();
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
@@ -201,8 +172,6 @@ public class ChooseAreaActivity extends Activity {
 								queryProvinces();
 							} else if ("city".equals(type)) {
 								queryCities();
-							} else if ("county".equals(type)) {
-								queryCounties();
 							}
 						}
 					});

@@ -1,15 +1,23 @@
 package com.coolweather.app.util;
 
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xmlpull.v1.XmlPullParser;
+
 
 import com.coolweather.app.db.CoolWeatherDB;
 import com.coolweather.app.model.City;
-import com.coolweather.app.model.County;
+
 import com.coolweather.app.model.Province;
 
 import android.content.Context;
@@ -19,24 +27,28 @@ import android.text.TextUtils;
 
 public class Utility {
 
+	private static List<Xmldata> Xmldatas;
 	/**
 	 * 解析和处理服务器返回的省级数据
+	 * xml解析
 	 */
 	public synchronized static boolean handleProvincesResponse(
 			CoolWeatherDB coolWeatherDB, String response) {
 		if (!TextUtils.isEmpty(response)) {
-			String[] allProvinces = response.split(",");
-			if (allProvinces != null && allProvinces.length > 0) {
-				for (String p : allProvinces) {
-					String[] array = p.split("\\|");
-					Province province = new Province();
-					province.setProvinceCode(array[0]);
-					province.setProvinceName(array[1]);
-					// 将解析出来的数据存储到Province表
-					coolWeatherDB.saveProvince(province);
-				}
-				return true;
+
+			Xmldatas = GetXmldata.GetXmldata(response);
+			Iterator<Xmldata> iterator = Xmldatas.iterator();
+			while (iterator.hasNext()){
+				Xmldata xmldata = iterator.next();
+				Province province = new Province();
+				province.setProvinceCode(xmldata.getPyName());
+				province.setProvinceName(xmldata.getQuName());
+				// 将解析出来的数据存储到Province表
+				coolWeatherDB.saveProvince(province);
+
+
 			}
+			return true;
 		}
 		return false;
 	}
@@ -47,19 +59,20 @@ public class Utility {
 	public static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,
 			String response, int provinceId) {
 		if (!TextUtils.isEmpty(response)) {
-			String[] allCities = response.split(",");
-			if (allCities != null && allCities.length > 0) {
-				for (String c : allCities) {
-					String[] array = c.split("\\|");
-					City city = new City();
-					city.setCityCode(array[0]);
-					city.setCityName(array[1]);
-					city.setProvinceId(provinceId);
-					// 将解析出来的数据存储到City表
-					coolWeatherDB.saveCity(city);
-				}
-				return true;
-			}
+			Xmldatas = GetXmldata.GetXmldata(response);
+			Iterator<Xmldata> iterator = Xmldatas.iterator();
+			while (iterator.hasNext()){
+				Xmldata xmldata = iterator.next();
+				City city = new City();
+				city.setCityCode(xmldata.getPyName());
+				city.setCityName(xmldata.getCityname());
+				city.setProvinceId(provinceId);
+				// 将解析出来的数据存储到City表
+				coolWeatherDB.saveCity(city);
+
+
+
+			}return true;
 		}
 		return false;
 	}
@@ -70,19 +83,21 @@ public class Utility {
 	public static boolean handleCountiesResponse(CoolWeatherDB coolWeatherDB,
 			String response, int cityId) {
 		if (!TextUtils.isEmpty(response)) {
-			String[] allCounties = response.split(",");
-			if (allCounties != null && allCounties.length > 0) {
-				for (String c : allCounties) {
-					String[] array = c.split("\\|");
-					County county = new County();
-					county.setCountyCode(array[0]);
-					county.setCountyName(array[1]);
-					county.setCityId(cityId);
-					// 将解析出来的数据存储到County表
-					coolWeatherDB.saveCounty(county);
-				}
-				return true;
-			}
+			Xmldatas = GetXmldata.GetXmldata(response);
+			Iterator<Xmldata> iterator = Xmldatas.iterator();
+			while (iterator.hasNext()){
+				Xmldata xmldata = iterator.next();
+				City city = new City();
+				city.setCityCode(xmldata.getPyName());
+				city.setCityName(xmldata.getCityname());
+				city.setProvinceId(cityId);
+				// 将解析出来的数据存储到City表
+				coolWeatherDB.saveCity(city);
+
+
+
+			}return true;
+
 		}
 		return false;
 	}
@@ -92,19 +107,81 @@ public class Utility {
 	 */
 	public static void handleWeatherResponse(Context context, String response) {
 		try {
-			JSONObject jsonObject = new JSONObject(response);
-			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
-			String cityName = weatherInfo.getString("city");
-			String weatherCode = weatherInfo.getString("cityid");
-			String temp1 = weatherInfo.getString("temp1");
-			String temp2 = weatherInfo.getString("temp2");
-			String weatherDesp = weatherInfo.getString("weather");
-			String publishTime = weatherInfo.getString("ptime");
-			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2,
-					weatherDesp, publishTime);
-		} catch (JSONException e) {
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+			XmlPullParser xmlPullParser = factory.newPullParser();
+			xmlPullParser.setInput(new StringReader(response));
+			int eventType = xmlPullParser.getEventType();
+			String id = "";
+			String name = "";
+			String version = "";
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				Xmldata xmldata = new Xmldata();
+				xmldata.setUpcity(XMLRootSearcher.findRootElementName(response));
+				String nodeName = xmlPullParser.getName();
+				switch (eventType) {
+					// 开始解析某个结点
+					case XmlPullParser.START_TAG: {
+						if ("cityX".equals(nodeName)) {
+							xmldata.setCityX(xmlPullParser.nextText());
+						} else if ("cityY".equals(nodeName)) {
+							xmldata.setCityY(xmlPullParser.nextText());
+						} else if ("cityname".equals(nodeName)) {
+							xmldata.setCityname(xmlPullParser.nextText());
+						} else if ("centername".equals(nodeName)) {
+							xmldata.setCentername(xmlPullParser.nextText());
+						} else if ("pyName".equals(nodeName)) {
+							xmldata.setPyName(xmlPullParser.nextText());
+						} else if ("stateDetailed".equals(nodeName)) {
+							xmldata.setStateDetailed(xmlPullParser.nextText());
+						} else if ("tem1".equals(nodeName)) {
+							xmldata.setTem1(xmlPullParser.nextText());
+						} else if ("tem2".equals(nodeName)) {
+							xmldata.setTem2(xmlPullParser.nextText());
+						} else if ("temNow".equals(nodeName)) {
+							xmldata.setTemNow(xmlPullParser.nextText());
+						} else if ("windState".equals(nodeName)) {
+							xmldata.setWindState(xmlPullParser.nextText());
+						} else if ("windDir".equals(nodeName)) {
+							xmldata.setWindDir(xmlPullParser.nextText());
+						} else if ("windPower".equals(nodeName)) {
+							xmldata.setWindPower(xmlPullParser.nextText());
+						} else if ("humidity".equals(nodeName)) {
+							xmldata.setHumidity(xmlPullParser.nextText());
+						} else if ("url".equals(nodeName)) {
+							xmldata.setUrl(xmlPullParser.nextText());
+						}
+						else if ("quName".equals(nodeName)) {
+							xmldata.setQuName(xmlPullParser.nextText());
+						}
+						break;
+					}
+					// 完成解析某个结点
+//                    case XmlPullParser.END_TAG: {
+//                        if ("app".equals(nodeName)) {
+//                            Log.d("MainActivity", "id is " + id);
+//                            Log.d("MainActivity", "name is " + name);
+//                            Log.d("MainActivity", "version is " + version);
+//                        }
+//                        break;
+//                    }
+					default:
+						break;
+				}
+				String cityName = xmldata.getCityname();
+				String weatherCode = xmldata.getPyName();
+				String temp1 = xmldata.getTem1();
+				String temp2 = xmldata.getTem2();
+				String weatherDesp = xmldata.getStateDetailed();
+				String publishTime = xmldata.getTime();
+				saveWeatherInfo(context, cityName, weatherCode, temp1, temp2,
+						weatherDesp, publishTime);
+				break;
+			//	eventType = xmlPullParser.next();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**

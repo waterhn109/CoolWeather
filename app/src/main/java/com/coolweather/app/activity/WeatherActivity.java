@@ -111,7 +111,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 * 查询县级代号所对应的天气代号。
 	 */
 	private void queryWeatherCode(String countyCode) {
-		String address = "http://www.weather.com.cn/data/list3/city" + countyCode + ".xml";
+		String address = "http://flash.weather.com.cn/wmaps/xml/" + countyCode + ".xml";
 		queryFromServer(address, "countyCode");
 	}
 
@@ -119,7 +119,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 * 查询天气代号所对应的天气。
 	 */
 	private void queryWeatherInfo(String weatherCode) {
-		String address = "http://www.weather.com.cn/data/cityinfo/" + weatherCode + ".html";
+		String address = "http://www.weather.com.cn/data/cityinfo/" + weatherCode + ".xml";
 		queryFromServer(address, "weatherCode");
 	}
 	
@@ -133,11 +133,12 @@ public class WeatherActivity extends Activity implements OnClickListener{
 				if ("countyCode".equals(type)) {
 					if (!TextUtils.isEmpty(response)) {
 						// 从服务器返回的数据中解析出天气代号
-						String[] array = response.split("\\|");
-						if (array != null && array.length == 2) {
-							String weatherCode = array[1];
-							queryWeatherInfo(weatherCode);
-						}
+
+//						String[] array = response.split("\\|");
+//						if (array != null && array.length == 2) {
+//							String weatherCode = array[1];
+//							queryWeatherInfo(weatherCode);
+//						}
 					}
 				} else if ("weatherCode".equals(type)) {
 					// 处理服务器返回的天气信息

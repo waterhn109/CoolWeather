@@ -4,21 +4,34 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="199825136614213" >
+    timestamp="290208002234268" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="344" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="27" />
     <task
         name="verifier"
-        duration="0" />
+        duration="3" />
 
-    <build timestamp="199825136614213" />
+    <artifact
+        location="C:\Users\HY\AndroidStudioProjects\CoolWeather\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_9\classes.dex"
+        type="DEX" />
+
+    <build timestamp="288402627850278" >
+        <artifact
+            location="C:\Users\HY\AndroidStudioProjects\CoolWeather\app\build\outputs\apk\app-debug.apk"
+            type="MAIN" />
+    </build>
+    <build timestamp="290208002234268" >
+        <artifact
+            location="C:\Users\HY\AndroidStudioProjects\CoolWeather\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_9\classes.dex"
+            type="DEX" />
+    </build>
 
 </instant-run>
