@@ -90,6 +90,12 @@ public class ChooseAreaActivity extends Activity {
 				if (currentLevel == LEVEL_PROVINCE) {
 					selectedProvince = provinceList.get(index);
 					queryCities();
+				}  else if (currentLevel == LEVEL_CITY) {
+					String cityCode = cityList.get(index).getCityCode();
+					Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
+					intent.putExtra("cityCode", cityCode);
+					startActivity(intent);
+					finish();
 				}
 			}
 		});
@@ -158,9 +164,6 @@ public class ChooseAreaActivity extends Activity {
 				} else if ("city".equals(type)) {
 					result = Utility.handleCitiesResponse(coolWeatherDB,
 							response, selectedProvince.getId());
-				} else if ("county".equals(type)) {
-					result = Utility.handleCountiesResponse(coolWeatherDB,
-							response, selectedCity.getId());
 				}
 				if (result) {
 					// 通过runOnUiThread()方法回到主线程处理逻辑

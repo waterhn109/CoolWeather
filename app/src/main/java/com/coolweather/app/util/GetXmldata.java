@@ -1,6 +1,11 @@
 package com.coolweather.app.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class GetXmldata {
 
-    private static List<Xmldata> Xmldatas;
+    private static List<Xmldata> Xmldatas = new ArrayList<Xmldata>();
 
     public static String substr(String str1,String str) {
 
@@ -30,6 +35,7 @@ public class GetXmldata {
 
         String reg_charset = "/>";
         String[] strs = response.split(reg_charset);
+        Xmldatas.clear();
         for (int i = 0; i < strs.length-1; i++)
         {
             Xmldata xmldata = new Xmldata();

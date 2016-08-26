@@ -33,18 +33,7 @@ public class HttpUtil {
 						 response = EntityUtils.toString(entity,"utf-8");
 
 					}
-//					URL url = new URL(address);
-//					connection = (HttpURLConnection) url.openConnection();
-//					connection.setRequestMethod("GET");
-//					connection.setConnectTimeout(8000);
-//					connection.setReadTimeout(8000);
-//					InputStream in = connection.getInputStream();
-//					BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//					StringBuilder response = new StringBuilder();
-//					String line;
-//					while ((line = reader.readLine()) != null) {
-//						response.append(line);
-//					}
+
 					if (listener != null) {
 						// 回调onFinish()方法
 						listener.onFinish(response);

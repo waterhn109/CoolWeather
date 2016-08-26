@@ -70,13 +70,13 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		currentDateText = (TextView) findViewById(R.id.current_date);
 		switchCity = (Button) findViewById(R.id.switch_city);
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
-		String countyCode = getIntent().getStringExtra("county_code");
-		if (!TextUtils.isEmpty(countyCode)) {
+		String citycode = getIntent().getStringExtra("citycode");
+		if (!TextUtils.isEmpty(citycode)) {
 			// 有县级代号时就去查询天气
 			publishText.setText("同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
-			queryWeatherCode(countyCode);
+			queryWeatherCode(citycode);
 		} else {
 			// 没有县级代号时就直接显示本地天气
 			showWeather();
@@ -97,10 +97,10 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		case R.id.refresh_weather:
 			publishText.setText("同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			String weatherCode = prefs.getString("weather_code", "");
-			if (!TextUtils.isEmpty(weatherCode)) {
-				queryWeatherInfo(weatherCode);
-			}
+//			String weatherCode = prefs.getString("weather_code", "");
+//			if (!TextUtils.isEmpty(weatherCode)) {
+//				queryWeatherInfo(weatherCode);
+//			}
 			break;
 		default:
 			break;
@@ -115,14 +115,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		queryFromServer(address, "countyCode");
 	}
 
-	/**
-	 * 查询天气代号所对应的天气。
-	 */
-	private void queryWeatherInfo(String weatherCode) {
-		String address = "http://www.weather.com.cn/data/cityinfo/" + weatherCode + ".xml";
-		queryFromServer(address, "weatherCode");
-	}
-	
+
 	/**
 	 * 根据传入的地址和类型去向服务器查询天气代号或者天气信息。
 	 */
@@ -130,17 +123,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
 			@Override
 			public void onFinish(final String response) {
-				if ("countyCode".equals(type)) {
-					if (!TextUtils.isEmpty(response)) {
-						// 从服务器返回的数据中解析出天气代号
 
-//						String[] array = response.split("\\|");
-//						if (array != null && array.length == 2) {
-//							String weatherCode = array[1];
-//							queryWeatherInfo(weatherCode);
-//						}
-					}
-				} else if ("weatherCode".equals(type)) {
 					// 处理服务器返回的天气信息
 					Utility.handleWeatherResponse(WeatherActivity.this, response);
 					runOnUiThread(new Runnable() {
@@ -150,7 +133,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 						}
 					});
 				}
-			}
+
 			
 			@Override
 			public void onError(Exception e) {
