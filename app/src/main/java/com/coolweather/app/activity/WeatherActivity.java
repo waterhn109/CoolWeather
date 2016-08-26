@@ -70,13 +70,13 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		currentDateText = (TextView) findViewById(R.id.current_date);
 		switchCity = (Button) findViewById(R.id.switch_city);
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
-		String citycode = getIntent().getStringExtra("citycode");
-		if (!TextUtils.isEmpty(citycode)) {
+		String cityCode = getIntent().getStringExtra("cityCode");
+		if (!TextUtils.isEmpty(cityCode)) {
 			// 有县级代号时就去查询天气
 			publishText.setText("同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
-			queryWeatherCode(citycode);
+			queryWeatherCode(cityCode);
 		} else {
 			// 没有县级代号时就直接显示本地天气
 			showWeather();
@@ -97,10 +97,11 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		case R.id.refresh_weather:
 			publishText.setText("同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//			String weatherCode = prefs.getString("weather_code", "");
-//			if (!TextUtils.isEmpty(weatherCode)) {
+			String weatherCode = prefs.getString("weather_code", "");
+			if (!TextUtils.isEmpty(weatherCode)) {
+				queryWeatherCode(weatherCode);
 //				queryWeatherInfo(weatherCode);
-//			}
+			}
 			break;
 		default:
 			break;

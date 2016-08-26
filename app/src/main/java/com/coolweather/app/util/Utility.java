@@ -109,6 +109,7 @@ public class Utility {
 		String reg_charset = "/>";
 		String[] strs = response.split(reg_charset);
 		Xmldata xmldata = new Xmldata();
+		//选择最小的
 		for (int i = 0; i < 1; i++)
 		{
 

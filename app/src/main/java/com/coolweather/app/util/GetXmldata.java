@@ -55,6 +55,7 @@ public class GetXmldata {
             xmldata.setCityY(substr("cityY",strs[i]));
             xmldata.setCityX(substr("cityX",strs[i]));
             xmldata.setCentername(substr("centername",strs[i]));
+            xmldata.setUrl(substr("url",strs[i]));
 
             Xmldatas.add(xmldata);
 
