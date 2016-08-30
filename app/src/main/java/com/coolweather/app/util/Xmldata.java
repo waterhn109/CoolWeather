@@ -12,13 +12,13 @@ public class Xmldata {
     private String centername;
     private String pyName;
     private String stateDetailed;
-    private String    tem1;
-    private String    tem2;
-    private String    temNow;
+    private String tem1;
+    private String tem2;
+    private String temNow;
     private String windState;
     private String windDir;
     private String windPower;
-    private String    humidity;
+    private String humidity;
     private String url;
     private String time;
 

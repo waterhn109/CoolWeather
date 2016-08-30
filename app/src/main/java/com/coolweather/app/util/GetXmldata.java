@@ -22,7 +22,8 @@ public class GetXmldata {
 
 
         //String str = "<p>sad2f</p>";//两个字符串中间
-        String regex = str1+"=\""+"(.[^\"]*.)"+"\"";
+        //String regex = str1+"=\""+"(.[^\"]*.)"+"\"";
+        String regex = str1+"=\""+"([^\"]*.)"+"\"";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);//匹配类
         while (matcher.find()) {
@@ -31,6 +32,16 @@ public class GetXmldata {
         return "";
     }
 
+    public static String upcity(String str){
+        //取得第一个<和空格之间的字母
+        String regex = "<"+"(.[^\"]*.)"+" dn=\"day\">";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);//匹配类
+        while (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "";
+    }
     public static List<Xmldata> GetXmldata(String response){
 
         String reg_charset = "/>";

@@ -45,13 +45,14 @@ public class AutoUpdateService extends Service {
 	 */
 	private void updateWeather() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String weatherCode = prefs.getString("weather_code", "");
-		String address = "http://flash.weather.com.cn/wmaps/xml/" + weatherCode + ".xml";
+		final String province_code = prefs.getString("province_code", "");
+		final String weatherCode = prefs.getString("weather_code", "");
+		String address = "http://flash.weather.com.cn/wmaps/xml/" + province_code + ".xml";
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
 			@Override
 			public void onFinish(String response) {
 				Log.d("TAG", response);
-				Utility.handleWeatherResponse(AutoUpdateService.this, response);
+				Utility.handleWeatherResponse(AutoUpdateService.this, response,weatherCode);
 			}
 
 			@Override

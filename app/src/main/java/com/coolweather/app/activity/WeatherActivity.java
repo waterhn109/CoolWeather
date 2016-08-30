@@ -71,12 +71,14 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		switchCity = (Button) findViewById(R.id.switch_city);
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
 		String cityCode = getIntent().getStringExtra("cityCode");
+		String provinceCode = getIntent().getStringExtra("provinceCode");
 		if (!TextUtils.isEmpty(cityCode)) {
 			// 有县级代号时就去查询天气
 			publishText.setText("同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
-			queryWeatherCode(cityCode);
+			queryCityCode(provinceCode,cityCode);
+			//queryWeatherCode(cityCode);
 		} else {
 			// 没有县级代号时就直接显示本地天气
 			showWeather();
@@ -98,8 +100,9 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			publishText.setText("同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String weatherCode = prefs.getString("weather_code", "");
+			String proCode = prefs.getString("province_code", "");
 			if (!TextUtils.isEmpty(weatherCode)) {
-				queryWeatherCode(weatherCode);
+				queryCityCode(proCode,weatherCode);
 //				queryWeatherInfo(weatherCode);
 			}
 			break;
@@ -111,29 +114,49 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	/**
 	 * 查询县级代号所对应的天气代号。
 	 */
-	private void queryWeatherCode(String countyCode) {
-		String address = "http://flash.weather.com.cn/wmaps/xml/" + countyCode + ".xml";
-		queryFromServer(address, "countyCode");
+//	private void queryWeatherCode(String countyCode) {
+//		String address = "http://flash.weather.com.cn/wmaps/xml/" + countyCode + ".xml";
+//		queryFromServer(address, "countyCode");
+//	}
+
+	private void queryCityCode(String provinceCode,String countyCode) {
+		String address = "http://flash.weather.com.cn/wmaps/xml/" + provinceCode + ".xml";
+		queryFromServer(address,countyCode, "countyCode");
 	}
+//	/**
+//	 * 根据传入的地址和类型去向服务器查询天气代号或者天气信息。
+//	 */
+//	private void queryFromServer(final String address, final String type) {
+//		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+//			@Override
+//			public void onFinish(final String response) {
+//
+//					// 处理服务器返回的天气信息
+//					Utility.handleWeatherResponse(WeatherActivity.this, response);
+//					runOnUiThread(new Runnable() {
+//						@Override
+//						public void run() {
+//							showWeather();
+//						}
+//					});
+//				}
+ 			/**
+			 * 根据传入的地址和类型去向服务器查询天气代号或者天气信息。
+			 */
+			private void queryFromServer(final String address, final String countyCode,final String type) {
+				HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+					@Override
+					public void onFinish(final String response) {
 
-
-	/**
-	 * 根据传入的地址和类型去向服务器查询天气代号或者天气信息。
-	 */
-	private void queryFromServer(final String address, final String type) {
-		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
-			@Override
-			public void onFinish(final String response) {
-
-					// 处理服务器返回的天气信息
-					Utility.handleWeatherResponse(WeatherActivity.this, response);
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							showWeather();
-						}
-					});
-				}
+						// 处理服务器返回的天气信息
+						Utility.handleWeatherResponse(WeatherActivity.this, response,countyCode);
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								showWeather();
+							}
+						});
+					}
 
 			
 			@Override

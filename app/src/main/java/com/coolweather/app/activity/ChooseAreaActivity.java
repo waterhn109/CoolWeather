@@ -26,6 +26,7 @@ import com.coolweather.app.model.Province;
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.Utility;
+import com.coolweather.app.util.Xmldata;
 
 public class ChooseAreaActivity extends Activity {
 
@@ -91,9 +92,24 @@ public class ChooseAreaActivity extends Activity {
 					selectedProvince = provinceList.get(index);
 					queryCities();
 				}  else if (currentLevel == LEVEL_CITY) {
-					String cityCode = cityList.get(index).getCityCode();
+					String cityCode = "";
+
+					//如果是直辖市则传递直辖市的缩写
+//					if (selectedProvince.getProvinceCode().equals("beijing")
+//							|| selectedProvince.getProvinceCode().equals("shanghai")
+//							|| selectedProvince.getProvinceCode().equals("chongqing")
+//							|| selectedProvince.getProvinceCode().equals("tianjin") )
+//					{
+//						cityCode = selectedProvince.getProvinceCode();
+//					}
+//					else {
+						cityCode = cityList.get(index).getCityCode();
+						selectedCity = cityList.get(index);
+//					}
 					Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
 					intent.putExtra("cityCode", cityCode);
+					intent.putExtra("provinceCode",selectedProvince.getProvinceCode());
+
 					startActivity(intent);
 					finish();
 				}
