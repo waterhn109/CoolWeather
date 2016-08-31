@@ -46,6 +46,11 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 * 用于显示当前日期
 	 */
 	private TextView currentDateText;
+
+	/**
+	 * 用于显示备注
+	 */
+	private TextView remarkText;
 	/**
 	 * 切换城市按钮
 	 */
@@ -63,6 +68,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		// 初始化各控件
 		weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
 		cityNameText = (TextView) findViewById(R.id.city_name);
+		remarkText = (TextView) findViewById(R.id.remark) ;
 		publishText = (TextView) findViewById(R.id.publish_text);
 		weatherDespText = (TextView) findViewById(R.id.weather_desp);
 		temp1Text = (TextView) findViewById(R.id.temp1);
@@ -110,7 +116,13 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
-	
+	@Override
+	public void onBackPressed(){
+		Intent intent = new Intent(this, ChooseAreaActivity.class);
+		intent.putExtra("from_weather_activity", true);
+		startActivity(intent);
+		finish();
+	}
 	/**
 	 * 查询县级代号所对应的天气代号。
 	 */
@@ -177,11 +189,12 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private void showWeather() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		cityNameText.setText( prefs.getString("city_name", ""));
-		temp1Text.setText(prefs.getString("temp1", ""));
-		temp2Text.setText(prefs.getString("temp2", ""));
+		temp1Text.setText(prefs.getString("temp1", "")+"℃");
+		temp2Text.setText(prefs.getString("temp2", "")+"℃");
 		weatherDespText.setText(prefs.getString("weather_desp", ""));
 		publishText.setText("今天" + prefs.getString("publish_time", "") + "发布");
 		currentDateText.setText(prefs.getString("current_date", ""));
+		remarkText.setText(prefs.getString("remark", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
 		Intent intent = new Intent(this, AutoUpdateService.class);

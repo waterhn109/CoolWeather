@@ -4,26 +4,26 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="329842205562566" >
+    timestamp="338294006905884" >
 
     <task
         name="javac"
-        duration="264" />
+        duration="219" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="116" />
+        duration="161" />
     <task
         name="verifier"
-        duration="52" />
+        duration="55" />
 
     <artifact
         location="C:\Users\HY\AndroidStudioProjects\CoolWeather\app\build\outputs\apk\app-debug.apk"
         type="MAIN" />
 
-    <build timestamp="329842205562566" >
+    <build timestamp="338294006905884" >
         <artifact
             location="C:\Users\HY\AndroidStudioProjects\CoolWeather\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />

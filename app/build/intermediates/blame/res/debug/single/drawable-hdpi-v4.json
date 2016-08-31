@@ -4,6 +4,10 @@
         "source": "C:\\Users\\HY\\AndroidStudioProjects\\CoolWeather\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\HY\\AndroidStudioProjects\\CoolWeather\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\jw.png",
+        "source": "C:\\Users\\HY\\AndroidStudioProjects\\CoolWeather\\app\\src\\main\\res\\drawable-hdpi\\jw.png"
+    },
+    {
         "merged": "C:\\Users\\HY\\AndroidStudioProjects\\CoolWeather\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\refresh.png",
         "source": "C:\\Users\\HY\\AndroidStudioProjects\\CoolWeather\\app\\src\\main\\res\\drawable-hdpi\\refresh.png"
     },

@@ -159,6 +159,65 @@ public class Utility {
 		editor.putString("city_name", cityName);
 		editor.putString("province_code", province_code);
 		editor.putString("weather_code", weatherCode);
+		editor.putString("remark", "");
+		//自己的特色
+		if (province_code.equals("shanghai")){
+			editor.putString("remark", "魔都");
+		}else if(province_code.equals("beijing")){
+			editor.putString("remark", "帝都");
+		}else if(cityName.equals("广州")){
+			editor.putString("remark", "小曾曾打工的地方");
+		}else if(province_code.equals("梁平")){
+			editor.putString("remark", "GRD");
+		}else if(cityName.equals("南京")){
+			editor.putString("remark", "大蓝鲸");
+		}else if(cityName.equals("商丘")){
+			editor.putString("remark", "老家");
+		}else if(cityName.equals("宿州")){
+			editor.putString("remark", "老家2");
+		}else if(cityName.equals("大理")){
+			editor.putString("remark", "苍山洱海");
+		}else if(cityName.equals("海口")){
+			editor.putString("remark", "小曾曾老家");
+		}else if(cityName.equals("曲靖")){
+			editor.putString("remark", "鸭子老家");
+		}else if(cityName.equals("南宁")){
+			editor.putString("remark", "农哥老家");
+		}else if(cityName.equals("驻马店")){
+			editor.putString("remark", "驻马店没有眼泪，大雪纷飞");
+		}else if(cityName.equals("昆明")){
+			editor.putString("remark", "老司机带我去");
+		}else if(cityName.equals("西宁")){
+			editor.putString("remark", "沙哥老家");
+		}else if(cityName.equals("泰州")){
+			editor.putString("remark", "鸡蛋老家");
+		}else if(cityName.equals("成都")){
+			editor.putString("remark", "各种好");
+		}else if(cityName.equals("长沙")){
+			editor.putString("remark", "美女多");
+		}else if(cityName.equals("兰州")){
+			editor.putString("remark", "青海人开的拉面馆都是垃圾");
+		}else if(cityName.equals("张掖")){
+			editor.putString("remark", "第一次喝果啤");
+		}else if(cityName.equals("敦煌")){
+			editor.putString("remark", "人少的时候去完全不一样");
+		} else if(cityName.equals("沈阳")){
+			editor.putString("remark", "烧烤大哥和剥蒜小妹");
+		}else if(cityName.equals("哈尔滨")){
+			editor.putString("remark", "一起哈啤");
+		}else if(cityName.equals("阜阳")){
+			editor.putString("remark", "有几个熟人");
+		}else if(province_code.equals("xinjiang")){
+			editor.putString("remark", "新疆是个好地方");
+		}else if(cityName.equals("林芝")){
+			editor.putString("remark", "文艺屌丝必去地之二");
+		} else {
+			if(weatherDesp.contains("晴")){editor.putString("remark", "天气不错");}
+			else if (weatherDesp.contains("雨")){
+			editor.putString("remark", "记得带雨伞啊");}
+			else if (weatherDesp.contains("雪")){
+				editor.putString("remark", "忧郁的一片天 飘着纷飞的雪");}
+		}
 		editor.putString("temp1", temp1);
 		editor.putString("temp2", temp2);
 		editor.putString("weather_desp", weatherDesp);

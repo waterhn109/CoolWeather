@@ -88,11 +88,28 @@ public class ChooseAreaActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int index,
 					long arg3) {
+				String cityCode = "";
+				String proCode  = "";
 				if (currentLevel == LEVEL_PROVINCE) {
+
 					selectedProvince = provinceList.get(index);
+					proCode = selectedProvince.getProvinceCode();
+					if (  proCode.equals("xisha")||proCode.equals("nanshadao")
+							||proCode.equals("diaoyudao")
+							){
+						cityCode =proCode;
+						proCode  ="china";
+						Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
+						intent.putExtra("cityCode", cityCode);
+						intent.putExtra("provinceCode",proCode);
+
+						startActivity(intent);
+						finish();
+					}
+					else
 					queryCities();
 				}  else if (currentLevel == LEVEL_CITY) {
-					String cityCode = "";
+
 
 					//如果是直辖市则传递直辖市的缩写
 //					if (selectedProvince.getProvinceCode().equals("beijing")
@@ -106,9 +123,10 @@ public class ChooseAreaActivity extends Activity {
 						cityCode = cityList.get(index).getCityCode();
 						selectedCity = cityList.get(index);
 //					}
+					proCode = selectedProvince.getProvinceCode();
 					Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
 					intent.putExtra("cityCode", cityCode);
-					intent.putExtra("provinceCode",selectedProvince.getProvinceCode());
+					intent.putExtra("provinceCode",proCode);
 
 					startActivity(intent);
 					finish();
